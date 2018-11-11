@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Star Api Exploration</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <script type="text/javascript">
+    //window.addEventListener('load', () => alert(<%-JSON.stringify(data)%>));
+  <% if(data !== null){ %>
+      var data = <%- data %>
+      console.log(data);
+  <% } %>
+
+    //alert(data.lignes["0003"]);
+    window.addEventListener('load', () =>{
+      var s1 = document.getElementById('dropligne');
+      for (var i = 0; i < data.lignes.length; i++){
+        var newOption = document.createElement("option");
+        newOption.value = data.lignes[i].id;
+        newOption.innerHTML = data.lignes[i].nomcourt;
+        s1.options.add(newOption);
+      }
+
+      if (data.arrets !== undefined) {
+        var s3 = document.getElementById('droparret');
+        for (var i = 0; i < data.arrets["0"].length; i++){
+          var newOption = document.createElement("option");
+          newOption.value = data.arrets["0"][i].id;
+          newOption.innerHTML = data.arrets["0"][i].nom;
+          s3.options.add(newOption);
+        }
+      }
+
+      if (data.last !== undefined) {
+        var s2 = document.getElementById('dropdirec');
+        for (var i = 0; i < s1.options.length; i++){
+          if (s1.options[i].value == data.last.idligne){
+            s1.options[i].selected = true;
+          }
+        }
+
+        popDir();
+
+        for (var i = 0; i < s2.options.length; i++){
+          if (s2.options[i].value == data.last.iddir){
+            s2.options[i].selected = true;
+          }
+        }
+      }
+
+    });
+
+
+
+    function popDir() {
+      var s1 = document.getElementById('dropligne');
+      var s2 = document.getElementById('dropdirec');
+      var ligne = data.lignes.find( ligne => {return ligne.id === s1.value});
+      console.log(ligne);
+      s2.innerHTML = "";
+      var newOption = document.createElement("option");
+      newOption.value = undefined;
+      newOption.innerHTML = "Direction";
+      s2.options.add(newOption);
+      for (var i = 0; i < 2; i++) {
+        var newOption = document.createElement("option");
+        newOption.value = i.toString();
+        newOption.innerHTML = ligne[i];
+        s2.options.add(newOption);
+      }
+
+    }
+
+  </script>
+  <div class="container">
+    <fieldset>
+      <!-- <form action="/" method="post"> -->
+      <form action="/dir" method="post">
+        <select id='dropligne' name="dropligne" onchange="popDir()">
+            <option value="undefined">Ligne</option>
+        </select>
+        <select type="submit" id='dropdirec' name="dropdir" onchange="this.form.submit()">
+            <option value="undefined">Direction</option>
+        </select>
+        <select id='droparret' name="droparret">
+            <option value="undefined">Arret</option>
+        </select>
+        <hr />
+        <input type="submit" class="ghost-button" formaction="/" value="Get Pass">
+        </form>
+        <% if(pass !== null){ %>
+        <p>
+          <%= 'Prochain passage prévu à '+ pass %>
+        </p>
+        <% } %>
+
+        <% if(error !== null){ %>
+        <p>
+          <%= 'Horaires non disponibles, veuillez réessayer ultérieurement.' %>
+        </p>
+        <% } %>
+    </fieldset>
+  </div>
+</body>
+
+</html>
+<!-- // function apiGet(url, callback) {
+//   var xmlhttp = new ;
+//   xmlhttp.onreadystatechange = function () {
+//     if (xmlhttp.readystate == 4 && xmlhttp.status == 200) {
+//       callback(xmlhttp.responseText);
+//     }
+//
+//   }
+//   xmlhttp.open("GET", url, true);
+//   xmlhttp.send();s
+// }
+//
+// function sendRequest()  {
+//   apiGet("https://data.explore.star.fr/api/records/1.0/search/?dataset=tco-bus-topologie-dessertes-td&refine.nomcourtligne=C3", (json => alert(json)))
+// } -->

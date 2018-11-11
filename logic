@@ -1,0 +1,114 @@
+// 1 : demander toutes les lignes
+// 2 : Afficher les lignes -> récuperer un idligne
+// 3 : Afficher les directions
+// 4 : récupérer iddir
+// 5 : demander les arretes et les afficher en fonction
+// 6 : récuperer un idarret
+//
+//
+//
+//
+//
+// Afficher les lignes :
+//<select name="dropligne" formaction='/ligne' onchange='populate'>
+//     <option value="idligne">lignes.idligne.nomcourt</option>
+//
+// Afficher les directions :
+//
+//     <option value="iddir">lignes.idligne.iddir</option>
+//
+// Afficher les arrets :
+//
+//     <option value="idarret">arrets.iddir.idarret</option>
+
+
+// lignes = {
+//   idligne : {
+//     nomcourt: '',
+//     0 : 'NomDestination0',
+//     1 : 'NomDestination1'
+//   }
+// }
+//
+// arrets = {
+//   0 : {
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//
+//   }
+//   1 : {
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//     idarret : 'nomArret',
+//
+//   }
+// }
+
+
+
+data = {
+  lignes : {
+    idligne : {
+      nomcourt : '',
+      0 : '',
+      1 : '',
+      arrets : {
+        0 : [
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+        ],
+        1 : [
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+          idarret : 'nomArret',
+        ]
+      },
+    },
+    id2 : {
+
+    },
+  },
+}
+
+data {
+  lignes : {
+    ..
+  },
+  arrets : {
+
+  },
+  lastSelect : {
+    ligne :,
+    arret :
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+if arrets :
+  render lignes liste
+
+
+if stops :
+  render lignes liste with selected element
+  render dir liste with selected element
+  render arrets
